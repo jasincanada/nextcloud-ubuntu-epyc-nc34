@@ -18,8 +18,8 @@ newgrp docker
 ## Start the Stack
 
 ```bash
-git clone https://github.com/jasincanada/nextcloud-ubuntu-epyc-nc34-testbed.git
-cd nextcloud-ubuntu-epyc-nc34-testbed
+git clone https://github.com/jasincanada/nextcloud-ubuntu-epyc-nc34.git
+cd nextcloud-ubuntu-epyc-nc34
 cp .env.example .env
 nano .env  # fill in your values
 docker compose up -d
@@ -86,7 +86,7 @@ docker compose ps
 curl http://localhost:8081/status.php
 
 # PostgreSQL healthy
-docker exec nextcloud-epyc-testbed-db-1 pg_isready -U nextcloud
+docker exec nextcloud-ubuntu-epyc-nc34-db-1 pg_isready -U nextcloud
 
 # Redis responding
 docker exec $(docker ps -qf name=redis) redis-cli ping

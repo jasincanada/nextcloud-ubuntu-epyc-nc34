@@ -1,4 +1,4 @@
-# Nextcloud 34 Testbed — Ubuntu Server / AMD EPYC
+# Nextcloud 34 — Ubuntu Server / AMD EPYC
 
 A lean, purpose-built Nextcloud 34 test environment targeting Ubuntu Server on AMD EPYC hardware. Stripped of bundled observability (Prometheus and Grafana already run natively on the EPYC host) and WSL2/Windows-specific workarounds.
 
@@ -30,7 +30,7 @@ A lean, purpose-built Nextcloud 34 test environment targeting Ubuntu Server on A
 ## What Is Intentionally Absent
 
 - **No Prometheus / Grafana / Loki** — the EPYC host already runs these; exporters point to host
-- **No Watchtower** — manual image updates for a controlled testbed
+- **No Watchtower** — manual image updates for a controlled test environment
 - **No Authentik** — single-instance test, Nextcloud built-in auth is sufficient
 - **No Talk / HPB / Recording** — not in scope for NC34 testing
 - **No Whisper / LLM Gateway** — add back as needed for AI feature testing
@@ -39,8 +39,8 @@ A lean, purpose-built Nextcloud 34 test environment targeting Ubuntu Server on A
 ## Quick Start
 
 ```bash
-git clone https://github.com/jasincanada/nextcloud-ubuntu-epyc-nc34-testbed.git
-cd nextcloud-ubuntu-epyc-nc34-testbed
+git clone https://github.com/jasincanada/nextcloud-ubuntu-epyc-nc34.git
+cd nextcloud-ubuntu-epyc-nc34
 cp .env.example .env
 # Edit .env with your values
 docker compose up -d
@@ -66,7 +66,7 @@ Then reload Prometheus: `curl -X POST http://localhost:9090/-/reload`
 
 ## Upgrading Nextcloud
 
-Since this is a testbed, images use pinned patch versions. To test an upgrade:
+Since this is a controlled environment, images use pinned patch versions. To test an upgrade:
 
 ```bash
 # Update the version in docker-compose.yaml, then:
@@ -78,7 +78,7 @@ docker compose up -d --force-recreate nextcloud cron notify_push \
 Always take a PostgreSQL dump before upgrading:
 
 ```bash
-docker exec nextcloud-epyc-testbed-db-1 pg_dump -U nextcloud nextcloud > backup_pre_upgrade.sql
+docker exec nextcloud-ubuntu-epyc-nc34-db-1 pg_dump -U nextcloud nextcloud > backup_pre_upgrade.sql
 ```
 
 ## EPYC-Specific Notes
